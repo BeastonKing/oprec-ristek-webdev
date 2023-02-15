@@ -1,0 +1,44 @@
+.color-custom {
+    background-color: #01162d;
+}
+
+/* Box shadow generator taken from: https://cssgenerator.org/box-shadow-css-generator.html */
+.card {
+    background: linear-gradient(#203154, #01162d);
+    border-radius: 20px;
+    box-shadow: 5px 3px 6px 0px rgba(32,49,84,0.63);
+    -webkit-box-shadow: 5px 3px 6px 0px rgba(32,49,84,0.63);
+    -moz-box-shadow: 5px 3px 6px 0px rgba(32,49,84,0.63);
+}
+
+textarea {
+    resize: none;
+}
+textarea::placeholder {
+    color: rgb(196, 195, 195) !important;
+}
+textarea:focus {
+    background: #01162d !important;
+}
+
+.card {
+    position: relative;
+}
+
+a.stretched-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.edit-button, .delete-button {
+    position: relative;
+    z-index: 1;
+}
+
+/* Background: #01162d */
+/* blue text #01162d */
+/* light blue #203154 */

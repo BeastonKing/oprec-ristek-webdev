@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') %> 
+    <h1><%= post.body %></h1>
+    <h2><%= post.date %></h2>
+    <form action="/home/<%= post._id %>/?_method=DELETE" method="POST">
+        <button>Delete Post</button>
+    </form>
+    <a href="/home/<%= post._id %>/edit">Edit</a>
+    <a href="/home">Back to index</a>

@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') %> 
+    <form action="/home" method="post">
+        <label for="body">Write your post!</label>
+        <textarea name="post[body]" id="body" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+        
+        <button>Post!</button>
+    </form>
+    <a href="/home">Cancel</a>

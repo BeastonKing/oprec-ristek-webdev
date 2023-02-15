@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="offset-lg-2">
+            <h1>Homepage!</h1>
+        </div>
+    </div>
+    <form action="/home" method="post">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 offset-lg-2">
+                <div class="mb-3">
+                    <label for="body" class="form-label">Write your post!</label>
+                    <textarea class="form-control color-custom text-white" type="text" name="post[body]" id="body" cols="10" rows="6" placeholder="What's on your mind?"></textarea>
+
+                </div>
+                
+            </div>
+            <div class="col-md-4 col-lg-2 d-flex align-items-end justify-content-stretch">
+                <div class="d-grid">
+                    <button class="btn btn-primary mb-3">Post!</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <% for( let post of posts) { %>
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card mb-4">
+     
+                        <div class="card-body">
+                            <div class="card-title d-flex justify-content-between align-items-center">
+                                <div class="left text-white">
+                                    Author
+                                    <%= post.date %>
+                                </div>
+                                <a href="/home/<%= post._id %>" class="stretched-link"></a>
+                                <div class="right text-white d-flex">
+                                    <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button">Edit</a>
+                                    <form action="/home/<%= post._id %>/?_method=DELETE" method="POST"><button class="btn btn-sm btn-danger delete-button">Delete</button></form>
+                                </div>
+                            </div>
+                            <p class="card-text text-white my-2"><%= post.body %></p>
+                        </div>
+
+                </div>
+            </div>
+
+
+        <% } %>
+    </div>
+
+    <a href="/home/new">Add new post</a>

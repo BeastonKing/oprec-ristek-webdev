@@ -2,10 +2,13 @@
     <div class="row">
         <h1 class="text-center">Edit Post</h1>
         <div class="col-md-6 offset-md-3">
-            <form action="/home/<%= post._id %>?_method=PUT" method="post">
+            <form action="/home/<%= post._id %>?_method=PUT" method="post" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label for="body" class="form-label">Edit your post!</label>
-                    <textarea class="form-control color-custom text-white" type="text" name="post[body]" id="body" cols="30" rows="10" placeholder="What's on your mind?"><%= post.body %></textarea>
+                    <textarea class="form-control color-custom text-white" type="text" name="post[body]" id="body" cols="30" rows="10" placeholder="What's on your mind?" required><%= post.body %></textarea>
+                    <div class="invalid-feedback">
+                        Post must not be empty.
+                    </div>
                 </div>
                 <div class="mb-3"><button class="btn btn-primary">Edit!</button></div>
             </form>

@@ -4,47 +4,29 @@ const router = express.Router();
 const User = require('../models/user');
 const asyncCatcher = require('../utils/async-catcher');
 const {ensureNotAlreadyLoggedIn, ensureNotAlreadyLoggedOut} = require('../utils/middleware');
+const userControllers = require('../controllers/user-controllers');
 
 router.get('/', (req, res) => {
     res.redirect('/home')
 });
 
-router.get('/register', ensureNotAlreadyLoggedIn, (req, res) => {
-    res.render('users/register.ejs')
-});
+router.route('/register')
+    // Render registration form
+    .get(ensureNotAlreadyLoggedIn, userControllers.renderRegisterForm)
 
-router.post('/register', ensureNotAlreadyLoggedIn, asyncCatcher(async (req, res) => {
-    try {
-        const { email, username, password } = req.body;
-        const user = new User({ email, username });
-        const registeredUser = await User.register(user, password);
-        req.login(registeredUser, (err) => {
-            if (err) return next(err);
-            req.flash('success', 'Successfully registered!');
-            return res.redirect('/home');
-        });
-    } catch (error) {
-        req.flash('error', error.message)
-        return res.redirect('/register');
-    }
-}))
+    // Register
+    .post(ensureNotAlreadyLoggedIn, asyncCatcher(userControllers.register))
 
-router.get('/login', ensureNotAlreadyLoggedIn, (req, res) => {
-    res.render('users/login.ejs');
-})
 
-router.post('/login', ensureNotAlreadyLoggedIn, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-    req.flash('success', `Welcome back, ${req.user.username}!`);
-    res.redirect('/home');
-});
+router.route('/login')
+    // Render login form
+    .get(ensureNotAlreadyLoggedIn, userControllers.renderLoginForm)
+    
+    // Login
+    .post(ensureNotAlreadyLoggedIn, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), userControllers.login);
 
-router.get('/logout', ensureNotAlreadyLoggedOut, (req, res) => {
-    req.logout(function (e) {
-        if (e) return next(e);
-        req.flash('success', 'Successfully logged out!')
-        res.redirect('/home');
-    });
-})
+// Logout
+router.get('/logout', ensureNotAlreadyLoggedOut, userControllers.logout);
 
 
 

@@ -2,6 +2,8 @@
     <% if (currentUser) { %>
         <h1 class="offset-lg-2">Welcome back,</h1>
         <h1 class="offset-lg-2 username-color mb-3"><span class="fst-italic">@</span><%= currentUser.username %></h1>
+    <% } else { %>
+        <h1 class="offset-lg-2 mb-3">Welcome to <span class="username-color">RISTEK MedSOS</span></h1>
     <% } %>
     <form action="/home" method="post" class="needs-validation" novalidate>
         <div class="row">

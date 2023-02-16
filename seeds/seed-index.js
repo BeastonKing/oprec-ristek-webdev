@@ -19,10 +19,11 @@ const string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibu
 
 const seedDB = async() => {
     await Post.deleteMany({});
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 5; i++) {
         const rand = Math.floor(Math.random() * string.length);
         const date = new Date();
         const newPost = new Post({
+            author: '63ee22ddac11a413e2d62343',
             body: `${string.slice(0, rand - 1)}`, 
             date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
         });

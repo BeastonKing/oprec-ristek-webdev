@@ -8,10 +8,16 @@ const ejsMate = require('ejs-mate');
 const asyncCatcher = require('./utils/async-catcher');
 const ExpressError = require('./utils/express-error');
 const session = require('express-session');
+const passport = require('passport');
+const passportLocalStrategy = require('passport-local');
+const flash = require('connect-flash');
+
 const postRoutes = require('./routes/post-routes');
+const userRoutes = require('./routes/user-routes');
 
 const databaseUrl = process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/ristek-medsos';
 const Post = require('./models/post');
+const User = require('./models/user');
 
 
 // Mongoose
@@ -44,12 +50,30 @@ const sessionConfig = {
     }
 }
 
+
+app.use(flash());
 app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
 
+passport.use(new passportLocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.currentUser = req.user;
+    next();
+})
 
-app.get('/', (req, res) => {
-    res.redirect('/home')
+app.use('/', userRoutes);
+app.use('/home', postRoutes)
+
+app.get('/getuser', async (req, res) => {
+    const newUser = new User({email: 'tes@gmail.com', username: 'tesusername'});
+    const regUser = await User.register(newUser, 'tespassword');
+    res.send(regUser);
 })
 
 app.get('/api', asyncCatcher(async (req, res) => {
@@ -57,8 +81,6 @@ app.get('/api', asyncCatcher(async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send(JSON.stringify(posts));
 }))
-
-app.use('/home', postRoutes)
 
 
 

@@ -9,6 +9,10 @@ const PostSchema = new Schema({
     date: {
         type: String,
         required: true,
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
     }
 });
 

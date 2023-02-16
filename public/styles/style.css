@@ -21,6 +21,9 @@ textarea:focus {
     background: #01162d !important;
 }
 
+.username-color {
+    color: #88bfe8;
+}
 .card {
     position: relative;
 }
@@ -39,6 +42,12 @@ a.stretched-link::before {
     z-index: 1;
 }
 
+.date-style {
+    color: #cdcdcd;
+    font-size: 12px;
+}
+
 /* Background: #01162d */
 /* blue text #01162d */
 /* light blue #203154 */
+/* username color #88bfe8 */

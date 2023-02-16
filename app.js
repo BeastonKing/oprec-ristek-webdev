@@ -5,6 +5,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const asyncCatcher = require('./utils/async-catcher');
+const ExpressError = require('./utils/express-error');
+const session = require('express-session');
+const postRoutes = require('./routes/post-routes');
 
 const databaseUrl = process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/ristek-medsos';
 const Post = require('./models/post');
@@ -29,68 +33,41 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 
+const sessionConfig = {
+    secret: 'tempsecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() * 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    }
+}
+
+app.use(session(sessionConfig));
+
+
+
 app.get('/', (req, res) => {
     res.redirect('/home')
 })
 
-app.get('/api', async (req, res) => {
+app.get('/api', asyncCatcher(async (req, res) => {
     const posts = await Post.find({});
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send(JSON.stringify(posts));
+}))
+
+app.use('/home', postRoutes)
+
+
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
 })
-
-app.get('/home', async (req, res) => {
-    const posts = await Post.find({});
-    res.render('posts/index.ejs', {posts})
-});
-
-app.get('/home/new', (req, res) => {
-    res.render('posts/new.ejs')
-})
-
-app.post('/home', async (req, res) => {
-    const date = new Date();
-    const newPost = new Post({
-        ...req.body.post,
-        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
-    });
-    await newPost.save()
-    res.redirect('/home')
-});
-
-app.get('/test', async (req, res) => {
-    const newPost = new Post({
-        body: 'test date',
-        date: `10-10-2010`
-    });
-    await newPost.save()
-    res.redirect('/home')
-});
-
-app.get('/home/:id', async (req, res) => {
-    const findPost = await Post.findById(req.params.id);
-    res.render('posts/show.ejs', {post: findPost});
-})
-
-app.get('/home/:id/edit', async (req, res) => {
-    const findPost = await Post.findById(req.params.id);
-    res.render('posts/edit.ejs', {post: findPost})
-})
-
-app.put('/home/:id', async (req, res) => {
-    const {id} = req.params;
-    const date = new Date();
-    const updatedPost = await Post.findByIdAndUpdate(id, {
-        ...req.body.post,
-        date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
-    })
-    res.redirect(`/home/${updatedPost._id}`);
-})
-
-app.delete('/home/:id', async (req, res) => {
-    const {id} = req.params;
-    const deletedPost = await Post.findByIdAndDelete(id);
-    res.redirect('/home') ;
+app.use((err, req, res, next) => {
+    const {message = 'Something went wrong!', statusCode = 500} = err;
+    res.status(statusCode).render('error.ejs', {message});
 })
 
 

@@ -55,5 +55,6 @@ module.exports.updatePost = async (req, res) => {
 module.exports.deletePost = async (req, res) => {
     const {id} = req.params;
     const deletedPost = await Post.findByIdAndDelete(id);
+    const user = await User.findByIdAndUpdate(req.user._id, {$pull: {posts: id}});
     res.redirect('/home') ;
 }

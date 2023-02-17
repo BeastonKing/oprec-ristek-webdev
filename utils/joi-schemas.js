@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports.campgroundJoiSchema = Joi.object({
+module.exports.postJoiSchema = Joi.object({
     post: Joi.object({
         body: Joi.string().required(),
     }).required()

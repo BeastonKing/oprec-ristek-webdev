@@ -2,7 +2,7 @@ const ExpressError = require('./express-error');
 const asyncCatcher = require('./async-catcher');
 const Post = require('../models/post');
 const User = require('../models/user');
-const {campgroundJoiSchema} = require('./joi-schemas');
+const {postJoiSchema} = require('./joi-schemas');
 
 module.exports.ensureLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -50,7 +50,7 @@ module.exports.isCorrectUser = asyncCatcher(async (req, res, next) => {
 
 module.exports.validatePost = (req, res, next) => {
 
-    const {error}  = campgroundJoiSchema.validate(req.body);
+    const {error}  = postJoiSchema.validate(req.body);
     if (error) {
         throw new ExpressError(error.details.map(el => el.message).join(','), 400);
     } else next();

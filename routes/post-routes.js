@@ -3,7 +3,6 @@ const router = express.Router();
 const asyncCatcher = require('../utils/async-catcher');
 const ExpressError = require('../utils/express-error');
 const Post = require('../models/post');
-const { campgroundJoiSchema } = require('../utils/joi-schemas');
 const { ensureLoggedIn, isAuthor, validatePost } = require('../utils/middleware');
 const postControllers = require('../controllers/post-controllers');
 

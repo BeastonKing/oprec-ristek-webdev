@@ -32,8 +32,9 @@
      
                         <div class="card-body">
                             <div class="card-title d-flex justify-content-between align-items-center">
+
                                 <div class="left text-white text-wrap">
-                                    <span class="text-break fw-bold me-1"><%= post.author.username %></span>
+                                    <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= post.author._id %>"><%= post.author.username %></a>
                                     <span class="date-style"><%= post.date %></span>
                                 </div>
                                 <a href="/home/<%= post._id %>" class="stretched-link"></a>

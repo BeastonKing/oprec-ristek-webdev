@@ -11,6 +11,12 @@ const UserSchema = new Schema({
     bio: {
         type: String,
     },
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post',
+        }
+    ]
 });
 
 // Adds passport plugin to UserSchema

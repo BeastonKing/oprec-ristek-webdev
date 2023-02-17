@@ -1,6 +1,7 @@
 const ExpressError = require('./express-error');
 const asyncCatcher = require('./async-catcher');
 const Post = require('../models/post');
+const User = require('../models/user');
 const {campgroundJoiSchema} = require('./joi-schemas');
 
 module.exports.ensureLoggedIn = (req, res, next) => {
@@ -10,6 +11,8 @@ module.exports.ensureLoggedIn = (req, res, next) => {
     }
     next();
 }
+
+
 
 module.exports.ensureNotAlreadyLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -31,6 +34,16 @@ module.exports.isAuthor = asyncCatcher(async (req, res, next) => {
     if (!findPost.author.equals(req.user._id)) {
         req.flash('error', 'You are not authorized to do that action!');
         return res.redirect(`/home/${findPost._id}`);
+    }
+    next();
+})
+
+module.exports.isCorrectUser = asyncCatcher(async (req, res, next) => {
+    const {id} = req.params;
+    const findUser = await User.findById(id);
+    if (!findUser.equals(req.user._id)) {
+        req.flash('error', 'You are not authorized to do that action!');
+        return res.redirect(`/user/${findUser._id}`);
     }
     next();
 })

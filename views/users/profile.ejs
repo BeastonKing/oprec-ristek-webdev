@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <h1 class="col-md-8 col-lg-6 offset-lg-2 mb-3 username-color">@<%= user.username %></h1>
+        <div class="col-md-4 col-lg-2 mb-2 d-md-flex align-items-center justify-content-end">
+            <% if (currentUser && user.equals(currentUser._id)) { %>
+                <a href="/user/<%= currentUser._id %>/edit" class="btn btn-primary btn-sm">Edit Profile</a>
+            <% } %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <% if (user.bio) { %>
+                <div class="text-wrap">
+                    <p class="fw-light text-break"><%= user.bio %></p>
+                </div>
+            <% } else { %>
+                <p class="fst-italic fw-light text-break">User has not added their bio yet.</p>
+            <% } %>
+        </div>
+    </div>
+    <div class="row">
+        <% if (user.posts && user.posts.length) { %>
+            <h5 class="fw-bold text-white offset-lg-2 my-3">Posts by <%= user.username %>:</h5>
+            <% for( let post of user.posts) { %>
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card mb-4">
+        
+                            <div class="card-body">
+                                <div class="card-title d-flex justify-content-between align-items-center">
+    
+                                    <div class="left text-white text-wrap">
+                                        <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= user._id %>"><%= user.username %></a>
+                                        <span class="date-style"><%= post.date %></span>
+                                    </div>
+                                    <a href="/home/<%= post._id %>" class="stretched-link"></a>
+                                    <% if (currentUser && user.equals(currentUser._id)) { %>
+                                        <div class="right text-white d-flex">
+                                            <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button">Edit</a>
+                                            <form action="/home/<%= post._id %>/?_method=DELETE" method="POST"><button class="btn btn-sm btn-danger delete-button">Delete</button></form>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <p class="card-text text-white my-2"><%= post.body %></p>
+                            </div>
+    
+                    </div>
+                </div>
+    
+    
+            <% } %>
+        <% } else { %>
+            <div class="col-lg-8 offset-lg-2">
+                <h4 class="fst-italic">User has not made any posts.</h4>
+            </div>
+        <% } %>
+
+    </div>

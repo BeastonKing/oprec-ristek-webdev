@@ -36,3 +36,32 @@ module.exports.logout = (req, res) => {
         res.redirect('/home');
     });
 }
+
+module.exports.renderProfilePage = async (req, res) => {
+    const user = await User.findById(req.params.id).populate('posts');
+    if (!user) {
+        req.flash('error', 'User does not exist.');
+        return res.redirect('/home')
+    }
+    res.render('users/profile.ejs', {user});
+}
+
+module.exports.renderEditProfileForm = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        req.flash('error', 'User does not exist.');
+        return res.redirect('/home')
+    }
+    res.render('users/edit-profile.ejs', {user});
+}
+
+module.exports.editProfile = async (req, res) => {
+    const {id} = req.params;
+    const {bio} = req.body;
+    const user = await User.findById(id);
+    user.bio = bio;
+    await user.save();
+    req.flash('success', 'Profile has been successfully updated!')
+    res.redirect(`/user/${user._id}`);
+    
+}

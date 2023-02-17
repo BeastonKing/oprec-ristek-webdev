@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 module.exports.index = async (req, res) => {
     const posts = await Post.find({}).populate('author');
     res.render('posts/index.ejs', {posts})
@@ -16,8 +17,11 @@ module.exports.createNewPost = async (req, res) => {
         date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
     });
     newPost.author = req.user._id;
-    await newPost.save()
-    res.redirect('/home')
+    const user = await User.findById(req.user._id);
+    user.posts.push(newPost);
+    await user.save();
+    await newPost.save();
+    res.redirect('/home');
 }
 
 module.exports.showPost = async (req, res) => {

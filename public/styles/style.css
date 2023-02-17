@@ -37,9 +37,27 @@ a.stretched-link::before {
     width: 100%;
 }
 
+/* a.stretched-link::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+} */
+
 .edit-button, .delete-button {
     position: relative;
     z-index: 1;
+}
+
+.profile-link-front {
+    position: relative;
+    z-index: 2;
+}
+
+.profile-link:hover {
+    color: #88bfe8 !important;
 }
 
 .date-style {

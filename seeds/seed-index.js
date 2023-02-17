@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const databaseUrl = process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/ristek-medsos';
 const Post = require('../models/post');
+const User = require('../models/user');
 
 
 // Mongoose
@@ -19,7 +20,7 @@ const string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibu
 
 const seedDB = async() => {
     await Post.deleteMany({});
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         const rand = Math.floor(Math.random() * string.length);
         const date = new Date();
         const newPost = new Post({
@@ -27,6 +28,9 @@ const seedDB = async() => {
             body: `${string.slice(0, rand - 1)}`, 
             date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
         });
+        const user = await User.findById('63ee22ddac11a413e2d62343');
+        user.posts.push(newPost);
+        await user.save();
         await newPost.save()
     }
 }

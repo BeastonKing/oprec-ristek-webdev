@@ -9,7 +9,7 @@ These installation steps were made for Windows OS as this was tested on Windows 
 ### Prerequisites
 - Node JS ([Node.js main page](https://nodejs.org/en/)) (This project uses version 16.19.0)
 - MongoDB 
-  - Download MongoDB Community Version ([Download page](https://www.mongodb.com/try/download/community)) (This project uses version 6.0.3)
+  - Download MongoDB Community Version ([Download page](https://www.mongodb.com/try/download/community)) (This project was run version 6.0.3)
   - Install MongoDB Community Version
     - Choose custom installation and change the installation folder to `C:\mongodb` (optional as this was done to easily locate it)
     - Continue until Service Configuration page shows up. Untick "Install MongoD as a Service"
@@ -20,7 +20,8 @@ These installation steps were made for Windows OS as this was tested on Windows 
     - Close powershell
     - Add system environment variable to MongoDB bin folder (in this case add `C:\mongodb\bin`)
 
-  - Download Mongo Shell ([Download page](https://www.mongodb.com/try/download/shell)) (This project uses version 1.6.2)
+  - Download Mongo Shell ([Download page](https://www.mongodb.com/try/download/shell)) (This project was run on version 1.6.2)
+  - Install Mongo Shell
     - Add system environment variable to Mongo Shell installation folder (the default is `C:\Program Files\mongosh\`)
 - ENV file ([Drive link](https://drive.google.com/file/d/1fawE-HGVJNR5uRkKy-9iSbuIKsMU_Vci/view?usp=sharing))
   - Change the filename if necessary to ensure its name is `.env`

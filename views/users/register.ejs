@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %> 
 <h1>Register</h1>
-<form action="/register" class="needs-validation" method="post" novalidate>
+<form action="/register" class="needs-validation" method="post" novalidate enctype="multipart/form-data">
     <div class="mb-3">
         <label class="form-label" for="username">Username</label>
         <input class="form-control" type="text" name="username" id="username" required>
@@ -22,6 +22,11 @@
         <div class="invalid-feedback">
             Password can not be empty.
         </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Profile Picture</label>
+        <input type="file" name="image" id="image" class="form-control">
     </div>
     <button class="btn btn-success">Register!</button>
 </form>

@@ -16,7 +16,11 @@ const UserSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Post',
         }
-    ]
+    ],
+    image: {
+        url: String,
+        filename: String
+    }
 });
 
 // Adds passport plugin to UserSchema

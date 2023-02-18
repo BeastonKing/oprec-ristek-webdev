@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
     <% if (currentUser) { %>
         <h1 class="offset-lg-2">Welcome back,</h1>
-        <h1 class="offset-lg-2 username-color mb-3"><span class="fst-italic">@</span><%= currentUser.username %></h1>
+        <h1 class="offset-lg-2 username-color mb-3 text-wrap text-break"><span class="fst-italic">@</span><%= currentUser.username %></h1>
     <% } else { %>
         <h1 class="offset-lg-2 mb-3">Welcome to <span class="username-color">RISTEK MedSOS</span></h1>
     <% } %>
@@ -31,16 +31,16 @@
                 <div class="card mb-4">
      
                         <div class="card-body">
-                            <div class="card-title d-flex justify-content-between align-items-center">
+                            <div class="card-title d-flex justify-content-between align-items-center gap-small">
 
                                 <div class="left text-white text-wrap">
-                                    <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= post.author._id %>"><%= post.author.username %></a>
+                                    <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= post.author._id %>"><img src="<%= post.author.image.url %>" class="circular-image post-image-size me-2"><%= post.author.username %></a>
                                     <span class="date-style"><%= post.date %></span>
                                 </div>
                                 <a href="/home/<%= post._id %>" class="stretched-link"></a>
                                 <% if (currentUser && post.author.equals(currentUser._id)) { %>
-                                    <div class="right text-white d-flex">
-                                        <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button">Edit</a>
+                                    <div class="right text-white d-sm-flex">
+                                        <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button mb-2">Edit</a>
                                         <form action="/home/<%= post._id %>/?_method=DELETE" method="POST"><button class="btn btn-sm btn-danger delete-button">Delete</button></form>
                                     </div>
                                 <% } %>

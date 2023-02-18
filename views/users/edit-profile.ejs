@@ -3,12 +3,17 @@
     <h1 class="text-center">Edit Profile</h1>
     <div class="col-md-6 offset-md-3">
 
-        <form action="/user/<%= user._id %>?_method=PUT" class="needs-validation" method="post" novalidate>
+        <form action="/user/<%= user._id %>?_method=PUT" class="needs-validation" method="post" novalidate enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label" for="bio">Bio</label>
+                <label class="form-label fw-bold" for="bio">Bio</label>
                 <textarea class="form-control color-custom text-white" type="text" name="bio" id="bio" cols="30" rows="10" placeholder="Introduce yourself!"><%= user.bio %></textarea>
             </div>
-            <button class="btn btn-success mb-3">Edit Profile!</button>
+            <div class="mb-3">
+                <label for="image" class="form-label fw-bold">Change Profile Picture</label>
+                <div class="d-flex justify-content-center mb-2"><img src="<%= user.image.url %>" class="circular-image profile-image-size"></div>
+                <input type="file" name="image" id="image" class="form-control">
+            </div>
+            <button class="btn btn-success mb-2">Edit Profile!</button>
         </form>
         <a href="/user/<%= user._id %>" class="btn btn-danger">Cancel</a>
     </div>

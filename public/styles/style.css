@@ -65,6 +65,30 @@ a.stretched-link::before {
     font-size: 12px;
 }
 
+.circular-image {
+    border-radius: 50%;
+}
+
+.post-image-size {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-image-size {
+    width: 100px;
+    height: 100px;
+    
+}
+
+.navbar-image-size {
+    width: 40px;
+    height: 40px;
+}
+
+
+.gap-small {
+    gap: 5px;
+}
 /* Background: #01162d */
 /* blue text #01162d */
 /* light blue #203154 */

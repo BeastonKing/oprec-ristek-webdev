@@ -1,20 +1,20 @@
 <% layout('layouts/boilerplate') %>
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-lg-8 offset-lg-2">
             <h1 class="fw-bold text-white mb-3">Post Details</h1>
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 text-wrap">
-                        <a class="text-break fw-bold me-1 text-decoration-none link-light profile-link" href="/user/<%= post.author._id %>"><%= post.author.username %></a>
+                        <a class="text-break fw-bold me-1 text-decoration-none link-light profile-link" href="/user/<%= post.author._id %>"><img src="<%= post.author.image.url %>" class="circular-image post-image-size me-2"><%= post.author.username %></a>
                         <span class="date-style"><%= post.date %></span>
                     </div>
                     <p class="card-text"><%= post.body %></p>
                 </div>
                 <% if (currentUser && post.author.equals(currentUser._id)) { %>
                     <div class="card-body">
-                        <div class="d-md-flex">
-                            <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button mb-2">Edit</a>
-                            <form action="/home/<%= post._id %>/?_method=DELETE" method="POST" class="d-inline"><button class="btn btn-sm btn-danger delete-button">Delete</button></form>
+                        <div class="d-sm-flex">
+                            <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button mb-1">Edit</a>
+                            <form action="/home/<%= post._id %>/?_method=DELETE" method="POST" class="d-inline"><button class="btn btn-sm btn-danger delete-button mb-1">Delete</button></form>
                         </div>
                     </div>
                 <% } %>

@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const {cloudinary} = require('../cloudinary/cloudinary-index');
 module.exports.renderRegisterForm = (req, res) => {
     res.render('users/register.ejs')
 }
@@ -8,7 +8,15 @@ module.exports.register = async (req, res) => {
     try {
         const { email, username, password } = req.body;
         const user = new User({ email, username });
+        if (req.file) {
+            user.image.url = req.file.path;
+            user.image.filename = req.file.filename;
+        } else {
+            user.image.url = 'https://res.cloudinary.com/dfq6satrv/image/upload/v1676697841/ProfilePics/default-avatar_urbjpd.png'
+            user.image.filename = 'ProfilePics/default-avatar_urbjpd'
+        }
         const registeredUser = await User.register(user, password);
+        
         req.login(registeredUser, (err) => {
             if (err) return next(err);
             req.flash('success', 'Successfully registered!');
@@ -59,6 +67,17 @@ module.exports.editProfile = async (req, res) => {
     const {id} = req.params;
     const {bio} = req.body;
     const user = await User.findById(id);
+    if (!user) {
+        req.flash('error', 'User does not exist.');
+        return res.redirect('/home')
+    }
+    if (req.file) {
+        if (user.image.filename !== 'ProfilePics/default-avatar_urbjpd') {
+            await cloudinary.uploader.destroy(user.image.filename);
+        }
+        user.image.url = req.file.path;
+        user.image.filename = req.file.filename;
+    }
     user.bio = bio;
     await user.save();
     req.flash('success', 'Profile has been successfully updated!')

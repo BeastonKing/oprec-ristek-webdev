@@ -7,6 +7,11 @@ const asyncCatcher = require('../utils/async-catcher');
 const {ensureNotAlreadyLoggedIn, ensureNotAlreadyLoggedOut, ensureLoggedIn, isCorrectUser} = require('../utils/middleware');
 const userControllers = require('../controllers/user-controllers');
 
+const {storage} = require('../cloudinary/cloudinary-index');
+const multer = require('multer');
+const upload = multer({storage});
+// const upload = multer({dest: 'uploads/'});
+
 router.get('/', (req, res) => {
     res.redirect('/home')
 });
@@ -16,7 +21,7 @@ router.route('/register')
     .get(ensureNotAlreadyLoggedIn, userControllers.renderRegisterForm)
 
     // Register
-    .post(ensureNotAlreadyLoggedIn, asyncCatcher(userControllers.register))
+    .post(ensureNotAlreadyLoggedIn, upload.single('image'), asyncCatcher(userControllers.register))
 
 
 router.route('/login')
@@ -34,7 +39,7 @@ router.route('/user/:id')
     .get(asyncCatcher(userControllers.renderProfilePage))
 
     // PUT Edit Profile
-    .put(ensureLoggedIn, isCorrectUser, asyncCatcher(userControllers.editProfile))
+    .put(ensureLoggedIn, isCorrectUser, upload.single('image'), asyncCatcher(userControllers.editProfile))
 
 
 

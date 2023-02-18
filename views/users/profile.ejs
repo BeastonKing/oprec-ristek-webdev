@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
     <div class="row">
-        <h1 class="col-md-8 col-lg-6 offset-lg-2 mb-3 username-color">@<%= user.username %></h1>
+        <h1 class="col-md-8 col-lg-6 offset-lg-2 mb-3 username-color"><img src="<%= user.image.url %>" class="circular-image profile-image-size me-3">@<%= user.username %></h1>
         <div class="col-md-4 col-lg-2 mb-2 d-md-flex align-items-center justify-content-end">
             <% if (currentUser && user.equals(currentUser._id)) { %>
                 <a href="/user/<%= currentUser._id %>/edit" class="btn btn-primary btn-sm">Edit Profile</a>
@@ -20,22 +20,22 @@
     </div>
     <div class="row">
         <% if (user.posts && user.posts.length) { %>
-            <h5 class="fw-bold text-white offset-lg-2 my-3">Posts by <%= user.username %>:</h5>
+            <h5 class="fw-bold text-white col-lg-8 offset-lg-2 my-3">Posts by <%= user.username %>:</h5>
             <% for( let post of user.posts) { %>
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card mb-4">
         
                             <div class="card-body">
-                                <div class="card-title d-flex justify-content-between align-items-center">
+                                <div class="card-title d-flex justify-content-between align-items-center gap-small">
     
                                     <div class="left text-white text-wrap">
-                                        <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= user._id %>"><%= user.username %></a>
+                                        <a class="text-break fw-bold me-1 profile-link-front profile-link text-decoration-none link-light" href="/user/<%= user._id %>"><img src="<%= user.image.url %>" class="circular-image post-image-size me-2"><%= user.username %></a>
                                         <span class="date-style"><%= post.date %></span>
                                     </div>
                                     <a href="/home/<%= post._id %>" class="stretched-link"></a>
                                     <% if (currentUser && user.equals(currentUser._id)) { %>
-                                        <div class="right text-white d-flex">
-                                            <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button">Edit</a>
+                                        <div class="right text-white d-sm-flex">
+                                            <a href="/home/<%= post._id %>/edit" class="btn btn-sm btn-info me-2 edit-button mb-2">Edit</a>
                                             <form action="/home/<%= post._id %>/?_method=DELETE" method="POST"><button class="btn btn-sm btn-danger delete-button">Delete</button></form>
                                         </div>
                                     <% } %>

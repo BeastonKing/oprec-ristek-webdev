@@ -1,7 +1,7 @@
 
 # Tugas Recruitment Web Development RISTEK
 
-This is a repository of RISTEK Web Development Recruitment Assignment. The deployed application can be found [here](https://beastonking-ristek-medsos.cyclic.app/home).
+This is a repository of RISTEK Web Development Recruitment Assignment. The deployed application can be found [here](https://beastonking-ristek-medsos.cyclic.app/).
 
 ## Local Installation
 ### Pre-Installation Notes

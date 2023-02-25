@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const ejs = require('ejs')
-const port = 3000;
+const port = process.env.PORT || 3000;
 const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
@@ -19,7 +19,10 @@ const flash = require('connect-flash');
 const postRoutes = require('./routes/post-routes');
 const userRoutes = require('./routes/user-routes');
 
-const databaseUrl = process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/ristek-medsos';
+const databaseUrl ='mongodb://127.0.0.1:27017/ristek-medsos';
+const MongoStore = require('connect-mongo');
+
+
 const Post = require('./models/post');
 const User = require('./models/user');
 
@@ -43,7 +46,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 
+const store = MongoStore.create({
+    mongoUrl: databaseUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'tempsecret'
+    }
+});
+
+store.on('error', function (e) {
+    console.log('Session store error'. e);
+});
+
 const sessionConfig = {
+    store,
     secret: 'tempsecret',
     resave: false,
     saveUninitialized: true,

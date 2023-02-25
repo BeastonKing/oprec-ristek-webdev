@@ -34,6 +34,9 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, "Connection error:"));
 db.once('open', () => {
     console.log("Mongo database connected");
+    app.listen(port, () => {
+        console.log('Server is running on port', port);
+    });
 });
 
 
@@ -113,6 +116,3 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(port, () => {
-    console.log('Server is running on port', port);
-});

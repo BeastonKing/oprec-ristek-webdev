@@ -19,7 +19,7 @@ const flash = require('connect-flash');
 const postRoutes = require('./routes/post-routes');
 const userRoutes = require('./routes/user-routes');
 
-const databaseUrl ='mongodb://127.0.0.1:27017/ristek-medsos';
+const databaseUrl = process.env.MONGO_ATLAS_URL || 'mongodb://127.0.0.1:27017/ristek-medsos';
 const MongoStore = require('connect-mongo');
 
 

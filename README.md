@@ -35,5 +35,5 @@ These installation steps were made for Windows OS as this was tested on Windows 
 3. Move `.env` file to the root of the project
 4. Open powershell, run `mongod`
 5. Open another powershell, run `mongosh` (Performing MongoDB queries can be done in this powershell window)
-6. Run `node app.js` in the root folder of the project
+6. Run `node index.js` in the root folder of the project
 7. Go to `localhost:3000`

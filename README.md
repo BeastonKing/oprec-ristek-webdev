@@ -2,6 +2,7 @@
 # Tugas Recruitment Web Development RISTEK
 
 This is a repository of RISTEK Web Development Recruitment Assignment. The deployed application can be found [here](https://beastonking-ristek-medsos.cyclic.app/).
+Note: Make sure to turn off any custom DNS settings. Sometimes the website cannot be opened if you set a certain DNS settings for some reason. (Cyclic is weird I know)
 
 ## Local Installation
 ### Pre-Installation Notes

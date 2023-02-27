@@ -93,11 +93,6 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);
 app.use('/home', postRoutes)
 
-app.get('/getuser', async (req, res) => {
-    const newUser = new User({email: 'tes@gmail.com', username: 'tesusername'});
-    const regUser = await User.register(newUser, 'tespassword');
-    res.send(regUser);
-})
 
 app.get('/api', asyncCatcher(async (req, res) => {
     const posts = await Post.find({});

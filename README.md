@@ -1,7 +1,9 @@
 
-# Tugas Recruitment Web Development RISTEK
+# MiniSOS
 
-This is a repository of RISTEK Web Development Recruitment Assignment. The deployed application can be found [here](https://beastonking-ristek-medsos.cyclic.app/).     
+A minimalistic 'social media' where users can write, edit, delete, and see self or other's posts.
+
+Initially, this was a repository of RISTEK Web Development Recruitment Assignment which then rebranded to MiniSOS. The deployed application can be found [here](https://beastonking-ristek-medsos.cyclic.app/).     
 
 Note: Make sure to turn off any custom DNS settings. Sometimes the website cannot be opened if you set a certain DNS settings for some reason. (Cyclic is weird I know)
 
@@ -25,16 +27,11 @@ These installation steps were made for Windows OS as this was tested on Windows 
   - Download Mongo Shell ([Download page](https://www.mongodb.com/try/download/shell)) (This project was run on version 1.6.2)
   - Install Mongo Shell
     - Add system environment variable to Mongo Shell installation folder (the default is `C:\Program Files\mongosh\`)
-- ENV file ([Drive link](https://drive.google.com/file/d/1fawE-HGVJNR5uRkKy-9iSbuIKsMU_Vci/view?usp=sharing))
-  - Change the filename if necessary to ensure its name is `.env`
 
 ### How to Run Locally
-1. Open terminal
-2. Clone this repository and install the necessary packages
-    - `git clone https://github.com/BeastonKing/oprec-ristek-webdev.git`
-    - `cd oprec-ristek-webdev`
-    - `npm install`
-3. Move `.env` file to the root of the project
+1. Clone this repository
+2. Install the necessary packages using `npm install`
+3. This project uses an env file. An `env-template` file is provided.
 4. Open powershell, run `mongod`
 5. Open another powershell, run `mongosh` (Performing MongoDB queries can be done in this powershell window)
 6. Run `node index.js` in the root folder of the project
